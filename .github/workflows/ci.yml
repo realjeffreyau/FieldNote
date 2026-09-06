@@ -1,0 +1,29 @@
+name: FieldNote checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Private synthetic release checks
+        run: npm run release:private
+      - name: Audit locked dependencies
+        run: npm audit --omit=dev --audit-level=moderate
+      - name: Worktree whitespace checks
+        run: git diff --check

@@ -1,0 +1,43 @@
+{
+  "$schema": "fieldnote.agency-deployment.v1",
+  "$id": "fieldnote.agency-deployment-profiles.v1",
+  "version": "fieldnote.agency-deployment.v1",
+  "environments": {
+    "public_demo": {
+      "dataClass": "synthetic_or_deidentified",
+      "network": { "bindHost": "127.0.0.1", "tlsRequired": false, "remoteClientAllowed": false, "remoteModelAllowed": false },
+      "identity": { "accountsRequired": false, "mfaRequired": false, "rbacRequired": false, "sessionControlsRequired": false },
+      "tenantIsolationRequired": false,
+      "storage": { "persistenceAllowed": false, "encryptionAtRestRequired": false, "retentionPolicyRequired": false, "legalHoldRequired": false, "backupRequired": false },
+      "audit": { "serverSideRequired": false, "immutableRequired": false, "contentFreeRequired": false },
+      "telemetryContentAllowed": false,
+      "provider": { "mode": "loopback_local", "agreementRequired": false, "trainingOptOutRequired": true },
+      "review": { "humanReviewRequired": true, "autoSignAllowed": false, "autoSubmitAllowed": false },
+      "export": { "mode": "manual_text", "writeBackAllowed": false }
+    },
+    "technical_pilot": {
+      "dataClass": "approved_synthetic_only",
+      "network": { "bindHost": "private_subnet", "tlsRequired": true, "remoteClientAllowed": true, "remoteModelAllowed": false },
+      "identity": { "accountsRequired": true, "mfaRequired": true, "rbacRequired": true, "sessionControlsRequired": true },
+      "tenantIsolationRequired": true,
+      "storage": { "persistenceAllowed": true, "encryptionAtRestRequired": true, "retentionPolicyRequired": true, "legalHoldRequired": true, "backupRequired": true },
+      "audit": { "serverSideRequired": true, "immutableRequired": true, "contentFreeRequired": true },
+      "telemetryContentAllowed": false,
+      "provider": { "mode": "agency_approved", "agreementRequired": true, "trainingOptOutRequired": true },
+      "review": { "humanReviewRequired": true, "autoSignAllowed": false, "autoSubmitAllowed": false },
+      "export": { "mode": "approved_epcr_export", "writeBackAllowed": false }
+    },
+    "phi_pilot": {
+      "dataClass": "minimum_necessary_phi",
+      "network": { "bindHost": "managed_ingress", "tlsRequired": true, "remoteClientAllowed": true, "remoteModelAllowed": false },
+      "identity": { "accountsRequired": true, "mfaRequired": true, "rbacRequired": true, "sessionControlsRequired": true },
+      "tenantIsolationRequired": true,
+      "storage": { "persistenceAllowed": true, "encryptionAtRestRequired": true, "retentionPolicyRequired": true, "legalHoldRequired": true, "backupRequired": true },
+      "audit": { "serverSideRequired": true, "immutableRequired": true, "contentFreeRequired": true },
+      "telemetryContentAllowed": false,
+      "provider": { "mode": "agency_approved", "agreementRequired": true, "trainingOptOutRequired": true },
+      "review": { "humanReviewRequired": true, "autoSignAllowed": false, "autoSubmitAllowed": false },
+      "export": { "mode": "approved_epcr_export", "writeBackAllowed": false }
+    }
+  }
+}

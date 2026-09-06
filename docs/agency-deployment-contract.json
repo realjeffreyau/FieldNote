@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fieldnote.agency-deployment.v1",
+  "title": "FieldNote deployment safety profiles",
+  "description": "Planning contract for keeping the public demo separate from future agency deployments. This is not a production configuration file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "environments"],
+  "properties": {
+    "version": { "const": "fieldnote.agency-deployment.v1" },
+    "environments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["public_demo", "technical_pilot", "phi_pilot"],
+      "properties": {
+        "public_demo": { "$ref": "#/$defs/environment" },
+        "technical_pilot": { "$ref": "#/$defs/environment" },
+        "phi_pilot": { "$ref": "#/$defs/environment" }
+      }
+    }
+  },
+  "$defs": {
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dataClass",
+        "network",
+        "identity",
+        "tenantIsolationRequired",
+        "storage",
+        "audit",
+        "telemetryContentAllowed",
+        "provider",
+        "review",
+        "export"
+      ],
+      "properties": {
+        "dataClass": { "type": "string", "enum": ["synthetic_or_deidentified", "approved_synthetic_only", "minimum_necessary_phi"] },
+        "network": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bindHost", "tlsRequired", "remoteClientAllowed", "remoteModelAllowed"],
+          "properties": {
+            "bindHost": { "type": "string", "enum": ["127.0.0.1", "private_subnet", "managed_ingress"] },
+            "tlsRequired": { "type": "boolean" },
+            "remoteClientAllowed": { "type": "boolean" },
+            "remoteModelAllowed": { "type": "boolean" }
+          }
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["accountsRequired", "mfaRequired", "rbacRequired", "sessionControlsRequired"],
+          "properties": {
+            "accountsRequired": { "type": "boolean" },
+            "mfaRequired": { "type": "boolean" },
+            "rbacRequired": { "type": "boolean" },
+            "sessionControlsRequired": { "type": "boolean" }
+          }
+        },
+        "tenantIsolationRequired": { "type": "boolean" },
+        "storage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["persistenceAllowed", "encryptionAtRestRequired", "retentionPolicyRequired", "legalHoldRequired", "backupRequired"],
+          "properties": {
+            "persistenceAllowed": { "type": "boolean" },
+            "encryptionAtRestRequired": { "type": "boolean" },
+            "retentionPolicyRequired": { "type": "boolean" },
+            "legalHoldRequired": { "type": "boolean" },
+            "backupRequired": { "type": "boolean" }
+          }
+        },
+        "audit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["serverSideRequired", "immutableRequired", "contentFreeRequired"],
+          "properties": {
+            "serverSideRequired": { "type": "boolean" },
+            "immutableRequired": { "type": "boolean" },
+            "contentFreeRequired": { "type": "boolean" }
+          }
+        },
+        "telemetryContentAllowed": { "const": false },
+        "provider": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "agreementRequired", "trainingOptOutRequired"],
+          "properties": {
+            "mode": { "type": "string", "enum": ["rules_only", "loopback_local", "agency_approved"] },
+            "agreementRequired": { "type": "boolean" },
+            "trainingOptOutRequired": { "type": "boolean" }
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["humanReviewRequired", "autoSignAllowed", "autoSubmitAllowed"],
+          "properties": {
+            "humanReviewRequired": { "const": true },
+            "autoSignAllowed": { "const": false },
+            "autoSubmitAllowed": { "const": false }
+          }
+        },
+        "export": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "writeBackAllowed"],
+          "properties": {
+            "mode": { "type": "string", "enum": ["none", "manual_text", "approved_epcr_export"] },
+            "writeBackAllowed": { "const": false }
+          }
+        }
+      }
+    }
+  }
+}

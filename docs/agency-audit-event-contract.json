@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fieldnote.agency-audit-event.v1",
+  "title": "FieldNote agency audit event",
+  "description": "PHI-safe audit metadata contract. This event deliberately has no field for narrative, source, prompt, identifier, or free-form content.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "occurredAt",
+    "requestId",
+    "tenantId",
+    "actorId",
+    "actorType",
+    "action",
+    "resourceType",
+    "resourceId",
+    "outcome",
+    "contentPolicy"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "fieldnote.agency-audit-event.v1" },
+    "eventId": { "type": "string", "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "requestId": { "type": "string", "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$" },
+    "tenantId": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,128}$" },
+    "actorId": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,128}$" },
+    "actorType": {
+      "type": "string",
+      "enum": ["clinician", "reviewer", "agency_admin", "privacy_officer", "support", "system"]
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "auth.login",
+        "auth.logout",
+        "auth.mfa",
+        "record.create",
+        "record.read",
+        "record.update",
+        "record.delete",
+        "record.export",
+        "ai.generate",
+        "ai.validate",
+        "ai.review",
+        "ai.approve",
+        "admin.policy_change",
+        "support.break_glass",
+        "security.denied",
+        "security.rate_limited"
+      ]
+    },
+    "resourceType": {
+      "type": "string",
+      "enum": ["encounter", "draft", "transcript", "digest", "export", "user", "tenant", "policy", "session", "model_request"]
+    },
+    "resourceId": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,128}$" },
+    "outcome": { "type": "string", "enum": ["success", "denied", "failed"] },
+    "reasonCode": {
+      "type": "string",
+      "enum": ["user_requested", "policy_denied", "validation_failed", "upstream_unavailable", "system_error", "timeout", "rate_limited", "break_glass"]
+    },
+    "contentPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["narrativeContent", "sourceText", "promptContent", "identifierContent"],
+      "properties": {
+        "narrativeContent": { "const": false },
+        "sourceText": { "const": false },
+        "promptContent": { "const": false },
+        "identifierContent": { "const": false }
+      }
+    }
+  }
+}

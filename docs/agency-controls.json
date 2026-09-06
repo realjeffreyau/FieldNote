@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "product": "FieldNote",
+  "track": "agency-pilot",
+  "lastReviewed": "2026-08-16",
+  "statusDefinitions": {
+    "not_started": "No implementation or evidence has been accepted.",
+    "in_progress": "Work or evidence exists, but the exit criteria are not met.",
+    "verified": "The stated evidence has been reviewed and accepted by the named owner.",
+    "blocked": "A dependency or decision prevents safe completion."
+  },
+  "controls": [
+    {
+      "id": "AG-SCOPE-001",
+      "domain": "Scope and intended use",
+      "control": "Agency, medical director, privacy/security leadership, and counsel approve intended and prohibited uses.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Product + agency clinical and privacy leadership",
+      "evidence": ["Approved intended-use statement", "Approved prohibited-use statement", "Pilot protocol"],
+      "dependsOn": [],
+      "blocker": true
+    },
+    {
+      "id": "AG-DATA-001",
+      "domain": "Data governance",
+      "control": "An inventory identifies every data element, classification, purpose, system, owner, retention rule, and transfer boundary.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Privacy lead + product engineering",
+      "evidence": ["Data inventory", "Approved data-flow diagram", "Record of processing activities", "docs/agency-deployment-profiles.json"],
+      "dependsOn": ["AG-SCOPE-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-DATA-002",
+      "domain": "Retention and deletion",
+      "control": "Agency-approved retention, deletion, legal-hold, export, and restore behavior is implemented and tested.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency records owner + engineering",
+      "evidence": ["Retention policy", "Deletion test report", "Legal-hold procedure", "Restore test"],
+      "dependsOn": ["AG-DATA-001", "AG-AUD-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-IAM-001",
+      "domain": "Identity",
+      "control": "Every user has a named account authenticated through the agency-approved identity provider; shared accounts are prohibited.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency IT + engineering",
+      "evidence": ["OIDC/SAML design", "Authentication test report", "Account lifecycle runbook"],
+      "dependsOn": ["AG-SCOPE-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-IAM-002",
+      "domain": "Authorization",
+      "control": "Role-based access and minimum-necessary permissions restrict every read, write, export, admin, and support action by user and agency tenant.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Security lead + engineering",
+      "evidence": ["Permission matrix", "Authorization test suite", "Cross-tenant denial tests"],
+      "dependsOn": ["AG-IAM-001", "AG-TEN-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-IAM-003",
+      "domain": "Session and workforce controls",
+      "control": "MFA, session timeout, reauthentication for sensitive actions, joiner/mover/leaver handling, and emergency access are documented and enforced.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency IT + security lead",
+      "evidence": ["MFA configuration", "Session test report", "Workforce access procedure", "Emergency-access review"],
+      "dependsOn": ["AG-IAM-001", "AG-IAM-002"],
+      "blocker": true
+    },
+    {
+      "id": "AG-TEN-001",
+      "domain": "Tenant isolation",
+      "control": "Agency data is isolated at the authorization and persistence layers, with automated tests proving no cross-tenant read, update, export, or inference access.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Engineering + security reviewer",
+      "evidence": ["Tenant data model", "Database row-level policy or equivalent", "Cross-tenant test report", "Penetration-test evidence"],
+      "dependsOn": ["AG-DATA-001", "AG-IAM-001", "AG-IAM-002"],
+      "blocker": true
+    },
+    {
+      "id": "AG-SEC-001",
+      "domain": "Cryptography",
+      "control": "All agency traffic uses managed TLS; stored PHI and backups use approved encryption with separated key management and rotation.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Infrastructure + security lead",
+      "evidence": ["TLS configuration", "Key-management design", "Rotation test", "Backup encryption evidence"],
+      "dependsOn": ["AG-DATA-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-SEC-002",
+      "domain": "Secrets and deployment",
+      "control": "Secrets are injected through an approved secret manager, never shipped to clients or images, and production configuration fails closed when required controls are absent.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Engineering + infrastructure",
+      "evidence": ["Secret inventory", "Deployment configuration review", "docs/agency-deployment-contract.json", "docs/agency-deployment-profiles.json", "Secret rotation test", "Production startup-failure test"],
+      "dependsOn": ["AG-SEC-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-AUD-001",
+      "domain": "Auditability",
+      "control": "Immutable, access-controlled audit records capture PHI reads, edits, generation, exports, approvals, administrative changes, and support access without storing raw narrative content in the event payload.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Security/privacy lead + engineering",
+      "evidence": ["docs/agency-audit-event-contract.json", "scripts/agency-contract-check.mjs", "Append-only storage policy", "Tamper-resistance test", "Audit review procedure"],
+      "dependsOn": ["AG-IAM-002", "AG-DATA-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-AUD-002",
+      "domain": "Telemetry and support",
+      "control": "Logs, metrics, traces, crash reports, tickets, screenshots, and debugging tools exclude PHI and use opaque identifiers with documented redaction tests.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Engineering + privacy lead",
+      "evidence": ["Telemetry data contract", "docs/agency-audit-event-contract.json", "docs/agency-deployment-profiles.json", "Redaction tests", "Support-access procedure", "Sampling review"],
+      "dependsOn": ["AG-DATA-001", "AG-AUD-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-OPS-001",
+      "domain": "Incident response",
+      "control": "A documented incident, breach assessment, escalation, notification, evidence preservation, and tabletop exercise covers agency and vendor events.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency incident commander + privacy/security leadership",
+      "evidence": ["Incident-response plan", "Contact roster", "Tabletop report", "Breach assessment procedure"],
+      "dependsOn": ["AG-AUD-001", "AG-AUD-002"],
+      "blocker": true
+    },
+    {
+      "id": "AG-OPS-002",
+      "domain": "Continuity and recovery",
+      "control": "Encrypted backups, recovery objectives, restore procedures, outage behavior, and a tested recovery exercise are approved by the agency.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Infrastructure + agency operations",
+      "evidence": ["Business-continuity plan", "Disaster-recovery runbook", "Restore exercise", "RTO/RPO approval"],
+      "dependsOn": ["AG-SEC-001", "AG-DATA-002"],
+      "blocker": true
+    },
+    {
+      "id": "AG-VEND-001",
+      "domain": "Vendors and contracts",
+      "control": "Every PHI-touching host, model provider, support tool, analytics tool, and subprocesser is inventoried and contractually approved before pilot data flows.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Counsel + procurement + privacy lead",
+      "evidence": ["Subprocessor list", "BAA/DPA review", "Data-use and training terms", "Vendor risk assessments"],
+      "dependsOn": ["AG-DATA-001", "AG-SCOPE-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-AI-001",
+      "domain": "AI governance",
+      "control": "Each generation records model, prompt, policy, schema, source-span, and evaluation versions, and the service rejects unsupported assertions before clinician review.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Product safety + engineering + medical director",
+      "evidence": ["docs/ai-organize-contract.json", "Source-grounding tests", "Privacy-safe request-correlation test", "Model change record", "Human-review workflow"],
+      "dependsOn": ["AG-DATA-001", "AG-AUD-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-AI-002",
+      "domain": "AI evaluation",
+      "control": "Synthetic and agency-approved evaluation sets measure fabrication, omission, timing/dose/route fidelity, quote fidelity, section placement, prompt injection, and follow-up quality before model changes are released.",
+      "status": "in_progress",
+      "priority": "required",
+      "owner": "Clinical safety lead + QA + engineering",
+      "evidence": ["Evaluation dataset registry", "Scoring rubric", "scripts/ai-regression.mjs", "Regression report", "Release approval"],
+      "dependsOn": ["AG-AI-001", "AG-CLIN-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-CLIN-001",
+      "domain": "Clinical safety",
+      "control": "EMS clinicians and the medical director validate workflow, documentation completeness, prohibited inference behavior, and escalation language using representative synthetic cases.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Medical director + EMS clinical leadership",
+      "evidence": ["Clinical validation protocol", "Case set", "Reviewer sign-off", "Issue disposition log"],
+      "dependsOn": ["AG-SCOPE-001", "AG-AI-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-INT-001",
+      "domain": "ePCR and standards",
+      "control": "The pilot defines an approved export-only contract, maps narrative and structured fields to the selected ePCR/NEMSIS version, and tests rejected/partial/duplicate exports.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency ePCR owner + clinical informatics",
+      "evidence": ["Versioned mapping", "Export schema", "Conformance tests", "Operational rollback procedure"],
+      "dependsOn": ["AG-CLIN-001", "AG-DATA-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-UX-001",
+      "domain": "Workflow and accessibility",
+      "control": "Representative EMS users validate Capture, Guided, review, correction, offline/failure, keyboard, touch, and screen-reader workflows without losing source details.",
+      "status": "in_progress",
+      "priority": "important",
+      "owner": "Product + EMS user group",
+      "evidence": ["Usability protocol", "Accessibility review", "Task results", "Issue disposition log"],
+      "dependsOn": ["AG-SCOPE-001", "AG-CLIN-001"],
+      "blocker": false
+    },
+    {
+      "id": "AG-TEST-001",
+      "domain": "Independent assurance",
+      "control": "Threat modeling, dependency scanning, independent security testing, privacy review, and remediation tracking are complete for the pilot deployment.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Security lead + independent assessor",
+      "evidence": ["Threat model", "Dependency report", "Penetration-test report", "Risk treatment register"],
+      "dependsOn": ["AG-IAM-002", "AG-TEN-001", "AG-AUD-002", "AG-SEC-001"],
+      "blocker": true
+    },
+    {
+      "id": "AG-GO-001",
+      "domain": "Pilot authorization",
+      "control": "The agency signs the pilot go/no-go record after technical, clinical, privacy, legal, operational, and recovery evidence is reviewed.",
+      "status": "not_started",
+      "priority": "required",
+      "owner": "Agency executive sponsor",
+      "evidence": ["Signed go/no-go record", "Open-risk acceptance", "Named support contacts", "Pilot dates and cohort"],
+      "dependsOn": ["AG-SCOPE-001", "AG-DATA-002", "AG-IAM-003", "AG-SEC-001", "AG-AUD-001", "AG-OPS-001", "AG-OPS-002", "AG-VEND-001", "AG-AI-002", "AG-CLIN-001", "AG-INT-001", "AG-TEST-001"],
+      "blocker": true
+    }
+  ]
+}

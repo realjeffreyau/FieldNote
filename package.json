@@ -1,0 +1,24 @@
+{
+  "name": "fieldnote-ems-narrative-demo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Private synthetic-test prototype for AI-assisted EMS narrative documentation.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check app.js && node --check server.mjs && node --check scripts/cdp-smoke.mjs && node --check scripts/private-test-readiness.mjs && node --check scripts/ai-regression.mjs && node --check scripts/security-regression.mjs && node --check scripts/agency-contract-check.mjs && node --check scripts/ai-live-eval.mjs && node --check scripts/agency-readiness.mjs",
+    "test:ai": "node scripts/ai-regression.mjs",
+    "test:security": "node scripts/security-regression.mjs",
+    "test:browser": "node scripts/cdp-smoke.mjs",
+    "test:private": "node scripts/private-test-readiness.mjs",
+    "release:private": "npm run check && npm run test:private && npm run test:ai && npm run test:security && npm run agency:contract && npm run agency:readiness",
+    "ai:build-model": "ollama create fieldnote-qwen3:4b -f ollama/Modelfile",
+    "ai:eval:live": "node scripts/ai-live-eval.mjs",
+    "agency:contract": "node scripts/agency-contract-check.mjs",
+    "agency:readiness": "node scripts/agency-readiness.mjs",
+    "agency:readiness:strict": "node scripts/agency-readiness.mjs --strict"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

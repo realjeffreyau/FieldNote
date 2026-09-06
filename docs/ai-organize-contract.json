@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fieldnote.ai-organize.v1",
+  "title": "FieldNote organize response",
+  "description": "Canonical response contract for the source-grounded organization boundary. It is not a PHI authorization contract.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/success"
+    },
+    {
+      "$ref": "#/$defs/error"
+    }
+  ],
+  "$defs": {
+    "sectionKey": {
+      "type": "string",
+      "enum": ["introduction", "complaint", "history", "exam", "assessment", "treatment", "evaluation", "disposition"]
+    },
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "introduction": { "type": "string" },
+        "complaint": { "type": "string" },
+        "history": { "type": "string" },
+        "exam": { "type": "string" },
+        "assessment": { "type": "string" },
+        "treatment": { "type": "string" },
+        "evaluation": { "type": "string" },
+        "disposition": { "type": "string" }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "introduction": { "type": "string" },
+        "complaint": { "type": "string" },
+        "history": { "type": "string" },
+        "exam": { "type": "string" },
+        "assessment": { "type": "string" },
+        "treatment": { "type": "string" },
+        "evaluation": { "type": "string" },
+        "disposition": { "type": "string" }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["section", "question"],
+        "properties": {
+          "section": { "$ref": "#/$defs/sectionKey" },
+          "question": { "type": "string" }
+        }
+      }
+    },
+    "requestId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "versionFields": {
+      "type": "object",
+      "required": ["contractVersion", "schemaVersion", "promptPolicyVersion", "sourceSpanPolicyVersion", "evaluationBundleVersion"],
+      "properties": {
+        "contractVersion": { "const": "fieldnote.ai-organize.v1" },
+        "schemaVersion": { "const": "fieldnote.narrative-schema.v1" },
+        "promptPolicyVersion": { "const": "fieldnote.prompt-policy.v6" },
+        "sourceSpanPolicyVersion": { "const": "fieldnote.source-span.v3" },
+        "evaluationBundleVersion": { "const": "fieldnote.ai-regression.v1" }
+      }
+    },
+    "success": {
+      "allOf": [
+        { "$ref": "#/$defs/versionFields" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["contractVersion", "schemaVersion", "promptPolicyVersion", "sourceSpanPolicyVersion", "evaluationBundleVersion", "requestId", "generatedAt", "provider", "model", "validation", "sections", "sources", "unfiled", "questions"],
+          "properties": {
+            "contractVersion": { "const": "fieldnote.ai-organize.v1" },
+            "schemaVersion": { "const": "fieldnote.narrative-schema.v1" },
+            "promptPolicyVersion": { "const": "fieldnote.prompt-policy.v6" },
+            "sourceSpanPolicyVersion": { "const": "fieldnote.source-span.v3" },
+            "evaluationBundleVersion": { "const": "fieldnote.ai-regression.v1" },
+            "requestId": { "$ref": "#/$defs/requestId" },
+            "generatedAt": { "type": "string", "format": "date-time" },
+            "provider": { "type": "string", "minLength": 1 },
+            "model": { "type": "string", "minLength": 1 },
+            "validation": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["status", "sourceGrounded"],
+              "properties": {
+                "status": { "const": "passed" },
+                "sourceGrounded": { "const": true }
+              }
+            },
+            "sections": { "$ref": "#/$defs/sections" },
+            "sources": { "$ref": "#/$defs/sources" },
+            "unfiled": { "type": "array", "items": { "type": "string" }, "maxItems": 20 },
+            "questions": { "$ref": "#/$defs/questions" }
+          }
+        }
+      ]
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contractVersion", "requestId", "error"],
+      "properties": {
+        "contractVersion": { "const": "fieldnote.ai-organize.v1" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "error": {
+          "type": "string",
+          "enum": ["invalid_json", "request_too_large", "notes_required", "notes_too_long", "possible_identifier_detected", "model_source_mismatch", "ollama_unavailable", "ollama_request_failed", "rate_limit_exceeded", "server_error"]
+        },
+        "retryAfter": { "type": "integer", "minimum": 0 },
+        "maxCharacters": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

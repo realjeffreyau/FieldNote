@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FieldNote | EMS Narrative</title>
+    <link rel="stylesheet" href="fonts.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <svg class="icon-sprite" hidden aria-hidden="true">
+      <symbol id="ic-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v4h4M12 7v5l3 2" /></symbol>
+      <symbol id="ic-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.3 2.3-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1 1.55V20.5h-3.2v-.11a1.7 1.7 0 0 0-1-1.55 1.7 1.7 0 0 0-1.88.34l-.06.06-2.3-2.3.06-.06A1.7 1.7 0 0 0 6.52 15a1.7 1.7 0 0 0-1.55-1H4.86v-3.2h.11a1.7 1.7 0 0 0 1.55-1 1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.3-2.3.06.06a1.7 1.7 0 0 0 1.88.34 1.7 1.7 0 0 0 1-1.55V4.3h3.2v.11a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.88-.34l.06-.06 2.3 2.3-.06.06a1.7 1.7 0 0 0-.34 1.88 1.7 1.7 0 0 0 1.55 1h.11V14h-.11a1.7 1.7 0 0 0-1.55 1Z" /></symbol>
+      <symbol id="ic-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 4.2-1 10-10a2.1 2.1 0 0 0-3-3l-10 10L4 20Z" /><path d="m13.8 7.2 3 3" /></symbol>
+      <symbol id="ic-capture" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14c2-6 4 6 6 0s4-6 6 0 4 6 6-1" /><path d="m14 19 6-6" /></symbol>
+      <symbol id="ic-guided" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m4 6 1.5 1.5L8 4.5M11 6h9M4 12l1.5 1.5L8 10.5m3 1.5h9M4 18l1.5 1.5L8 16.5m3 2h9" /></symbol>
+      <symbol id="ic-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M6 11a6 6 0 0 0 12 0M12 17v4M9 21h6" /></symbol>
+      <symbol id="ic-tip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M8.5 15.5a6 6 0 1 1 7 0c-.9.7-1.5 1.7-1.5 2.5h-4c0-.8-.6-1.8-1.5-2.5Z" /></symbol>
+      <symbol id="ic-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="1" /><path d="M15 9V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h4" /></symbol>
+      <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 20 6v5c0 5-3.4 8.4-8 10-4.6-1.6-8-5-8-10V6l8-3Z" /><path d="m9 12 2 2 4-5" /></symbol>
+      <symbol id="ic-source" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7H6a3 3 0 0 0 0 6h3M15 7h3a3 3 0 0 1 0 6h-3M8 10h8" /></symbol>
+      <symbol id="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15.2A8.4 8.4 0 0 1 8.8 4 8.5 8.5 0 1 0 20 15.2Z" /></symbol>
+      <symbol id="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5" /><path d="M12 2.5v2M12 19.5v2M4.5 12h-2M21.5 12h-2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" /></symbol>
+      <symbol id="ic-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18" /></symbol>
+    </svg>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">+</span><span>FieldNote</span><span class="prototype">Private test</span></div>
+        <div class="case-meta"><span class="status-dot" aria-hidden="true"></span> Synthetic encounter <span class="muted">|</span> browser tab only</div>
+        <div class="header-actions">
+          <button class="icon-btn" id="themeButton" title="Use night mode" aria-label="Use night mode" aria-pressed="false"><svg class="ic" aria-hidden="true" focusable="false"><use id="themeIcon" href="#ic-moon"></use></svg></button>
+        </div>
+      </header>
+
+      <nav class="page-nav" aria-label="Primary application pages">
+        <a href="#/workspace" data-route="workspace"><span class="nav-label-full">Narrative Writer</span><span class="nav-label-compact">Narrative</span></a>
+        <a href="#/scribe" data-route="scribe"><span class="nav-label-full">Clinical Scribe</span><span class="nav-label-compact">Scribe</span></a>
+        <a href="#/review" data-route="review"><span class="nav-label-full">Review</span><span class="nav-label-compact">Review</span> <span class="nav-badge" id="reviewBadge">8</span></a>
+        <span class="nav-divider" aria-hidden="true"></span>
+        <details class="utility-menu" id="utilitiesMenu">
+          <summary><svg class="ic utility-summary-icon" aria-hidden="true" focusable="false"><use href="#ic-settings"></use></svg><span class="utility-label-full">Utilities</span><span class="utility-label-compact">More</span><svg class="ic utility-chevron" aria-hidden="true" focusable="false"><use href="#ic-chevron"></use></svg></summary>
+          <div class="utility-menu-panel">
+            <span class="utility-menu-label">SUPPORTING WORKSPACES</span>
+            <a href="#/cases" data-route="cases"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-history"></use></svg><span><b>Work queue</b><small>Synthetic fixtures in this tab</small></span></a>
+            <a href="#/audit" data-route="audit"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-history"></use></svg><span><b>Audit</b><small>Session activity log</small></span></a>
+            <a href="#/trust" data-route="trust"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-shield"></use></svg><span><b>Trust &amp; safety</b><small>Boundaries and pilot gaps</small></span></a>
+            <a href="#/admin" data-route="admin"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-settings"></use></svg><span><b>Admin preview</b><small>Future agency controls</small></span></a>
+          </div>
+        </details>
+      </nav>
+
+      <section data-page="workspace">
+      <section class="case-bar" aria-label="Synthetic encounter context">
+        <div class="case-id"><span class="eyebrow">SYNTHETIC INCIDENT</span><strong>26-07129</strong></div>
+        <label class="call-type"><span class="eyebrow">CALL TYPE</span><select id="callType"><option value="">Select call type</option><option value="Transport">Transport</option><option value="Refusal/AMA">Refusal/AMA</option><option value="No patient found">No patient found</option><option value="Cancelled en route">Cancelled en route</option><option value="Lift assist">Lift assist</option><option value="Standby">Standby</option><option value="Treat and release">Treat and release</option><option value="TOR/DOA">TOR/DOA</option></select></label>
+        <div class="progress-wrap"><div class="progress-label"><span>Documentation progress</span><strong id="progressText">Sections with content — 0 of 8</strong></div><div class="progress-track"><span id="progressBar" data-count="0"></span></div></div>
+        <button class="finish-btn" id="finishButton">Review &amp; finish <span aria-hidden="true">→</span></button>
+      </section>
+
+      <section class="demo-boundary" aria-label="Demo privacy notice">
+        <div><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg><strong>PRIVATE TEST</strong></div>
+        <p><b>Synthetic data only.</b> Local/browser scope. No ePCR or production use.</p>
+        <button id="boundaryDetails">View safeguards</button>
+      </section>
+
+      <div class="workspace">
+        <aside class="left-rail">
+          <div class="mode-label">DOCUMENTATION MODE</div>
+          <div class="mode-switch" role="tablist" aria-label="Documentation mode">
+            <button class="mode active" data-mode="capture" role="tab" aria-selected="true"><span class="mode-icon"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-capture"></use></svg></span><span><b>Capture</b><small>Write the call as you remember it</small></span></button>
+            <button class="mode" data-mode="guided" role="tab" aria-selected="false"><span class="mode-icon"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-guided"></use></svg></span><span><b>Guided</b><small>Answer one chart detail at a time</small></span></button>
+            <button class="mode" data-mode="grammar" role="tab" aria-selected="false"><span class="mode-icon"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-edit"></use></svg></span><span><b>Grammar</b><small>Rewrite for clear sentences</small></span></button>
+          </div>
+
+          <nav class="sections" aria-label="I-CHEATED sections">
+            <div class="section-list-label">I-CHEATED</div>
+            <button class="section active" data-section="introduction"><span>I</span><b>Introduction</b><em>Needs detail</em></button>
+            <button class="section" data-section="complaint"><span>C</span><b>Chief complaint</b><em>Needs detail</em></button>
+            <button class="section" data-section="history"><span>H</span><b>History</b><em>Needs detail</em></button>
+            <button class="section" data-section="exam"><span>E</span><b>Exam</b><em>Needs detail</em></button>
+            <button class="section" data-section="assessment"><span>A</span><b>Assessment</b><em>Needs detail</em></button>
+            <button class="section" data-section="treatment"><span>T</span><b>Treatment</b><em>Needs detail</em></button>
+            <button class="section" data-section="evaluation"><span>E</span><b>Evaluation</b><em>Needs detail</em></button>
+            <button class="section" data-section="disposition"><span>D</span><b>Disposition</b><em>Needs detail</em></button>
+          </nav>
+          <div class="tip"><span><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-tip"></use></svg></span><p><b>Nothing gets discarded.</b> Capture preserves your original details while organizing the chart.</p></div>
+        </aside>
+
+        <section class="content">
+          <div id="captureMode" class="mode-view">
+            <div class="view-heading"><div><span class="eyebrow teal">CAPTURE MODE</span><h1>Capture the call in your own words.</h1><p>Start with the details as they come to you. Raw notes stay authoritative while the chart shows what still needs review.</p></div><button class="ghost-btn" id="loadExample">Load sample call</button></div>
+            <div class="capture-box">
+              <div class="capture-toolbar">
+                <div class="capture-toolbar-title"><span class="record-dot"></span><span>RAW CALL NOTES</span></div>
+                <div class="capture-toolbar-meta">
+                  <span class="autosave">Draft recovery: this tab</span>
+                    <span class="ai-runtime" id="aiStatus" data-state="checking" role="status" aria-live="polite" title="Local model connection status">Checking local model...</span>
+                    <label class="ai-consent" title="When enabled, raw notes may be sent to the configured Ollama service on organize."><input type="checkbox" id="localAiConsent" /> <span>Use local AI</span></label>
+                  </div>
+                </div>
+              <label class="visually-hidden" for="rawNotes">Raw call notes</label>
+              <textarea id="rawNotes" placeholder="Start wherever you need to. What did you see, hear, and do?"></textarea>
+              <div class="capture-footer"><span id="wordCount">0 words</span><div class="capture-actions"><button class="small-btn" id="clearDraftButton" title="Clear this draft">Clear draft</button><button class="small-btn" id="micButton" title="Dictation may use a browser or vendor speech service. Use synthetic notes only."><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-mic"></use></svg> <span class="mic-label">Dictate</span></button><button class="analyze-btn" id="analyzeButton">Organize details <span aria-hidden="true">→</span></button></div></div>
+            </div>
+            <div class="abbreviation-notice hidden" id="abbreviationNotice" role="status" aria-live="polite"><b>Documentation abbreviation notice</b><p id="abbreviationMessage"></p><span>Review the wording yourself; FieldNote does not change entered text.</span></div>
+            <section class="clinical-detail" aria-labelledby="clinicalDetailTitle">
+              <div class="clinical-heading"><div><span class="eyebrow teal">CLINICAL DETAIL</span><h2 id="clinicalDetailTitle">Structured capture</h2></div><p>Record clinician-entered facts only. Blank fields stay out of the narrative and export.</p></div>
+              <details class="clinical-block">
+                <summary><span>Vitals</span><small>Repeatable serial sets</small></summary>
+                <div class="clinical-block-body"><div id="vitalsRows"></div><div class="clinical-actions"><button type="button" class="secondary-action" id="addVitals">Add vitals set</button><label>Insert into <select id="vitalsTarget"><option value="">Choose section</option><option value="exam">Exam</option><option value="evaluation">Evaluation</option></select></label><button type="button" class="secondary-action" id="insertVitals">Insert into narrative</button></div></div>
+              </details>
+              <details class="clinical-block">
+                <summary><span>Call times</span><small>24-hour HH:MM</small></summary>
+                <div class="clinical-block-body"><p class="clinical-note">Times must reconcile with CAD.</p><div class="field-grid call-times" id="callTimes"><label>Dispatched<input type="time" data-field="Dispatched" /></label><label>En route<input type="time" data-field="En route" /></label><label>On scene<input type="time" data-field="On scene" /></label><label>At patient<input type="time" data-field="At patient" /></label><label>Depart scene<input type="time" data-field="Depart scene" /></label><label>At destination<input type="time" data-field="At destination" /></label><label>Transfer of care<input type="time" data-field="Transfer of care" /></label></div></div>
+              </details>
+              <details class="clinical-block">
+                <summary><span>Medications and procedures</span><small>Provider-entered details</small></summary>
+                <div class="clinical-block-body"><section class="row-group" aria-labelledby="medicationHeading"><div class="row-group-heading"><h3 id="medicationHeading">Medications</h3><button type="button" class="secondary-action" id="addMedication">Add medication</button></div><div id="medicationRows"></div></section><section class="row-group" aria-labelledby="procedureHeading"><div class="row-group-heading"><h3 id="procedureHeading">Procedures</h3><button type="button" class="secondary-action" id="addProcedure">Add procedure</button></div><div id="procedureRows"></div></section></div>
+              </details>
+              <details class="clinical-block" id="refusalBlock" hidden>
+                <summary><span>Refusal/AMA documentation</span><small>Provider-entered facts</small></summary>
+                <div class="clinical-block-body"><p class="clinical-note">Document what was assessed, explained, and offered. FieldNote does not determine capacity or whether refusal is appropriate.</p><div class="field-grid refusal-fields"><label>Capacity assessment<textarea data-field="Capacity assessment"></textarea></label><label>Risks explained<textarea data-field="Risks explained"></textarea></label><label>Alternatives offered<textarea data-field="Alternatives offered"></textarea></label><label>Witness<textarea data-field="Witness"></textarea></label></div></div>
+              </details>
+            </section>
+            <section class="organize-proposal" id="organizeProposal" hidden aria-labelledby="proposalTitle">
+              <div class="proposal-heading"><div><span class="eyebrow teal">ORGANIZE PROPOSAL</span><h2 id="proposalTitle">Review before adding to the narrative</h2></div><p>Accept, edit, or discard each suggestion. Raw notes remain unchanged.</p></div>
+              <div id="proposalSections"></div>
+              <section class="unfiled-details" id="unfiledDetails" hidden><h3>Unfiled details</h3><p>These supplied details did not match a section and remain in raw notes.</p><ul id="unfiledList"></ul></section>
+              <section class="ai-follow-up" id="aiFollowUpDetails" hidden><h3>AI follow-up questions</h3><p>These questions are prompts for clinician review, not patient facts. Answer them only when known.</p><ul id="aiQuestionsList"></ul></section>
+            </section>
+            <div class="privacy-alert hidden" id="privacyAlert" role="alert"><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg><div><b>Possible identifying information detected</b><p>Replace phone numbers, email addresses, record numbers, and other identifiers with fictional details. Automated detection is incomplete and is not de-identification.</p></div></div>
+            <div class="capture-bottom"><div><span class="eyebrow">KEEP THE GOOD STUFF</span><p>Scene observations, exact patient quotes, bystander details, negatives, timing, and clinical reasoning all make the narrative stronger.</p></div><div class="quick-tags"><button data-insert="Patient stated ">Patient quote</button><button data-insert="Bystander reported ">Bystander report</button><button data-insert="Denied ">Pertinent negative</button><button data-insert="At approximately ">Time marker</button></div></div>
+          </div>
+
+          <div id="guidedMode" class="mode-view hidden">
+            <div class="view-heading"><div><span class="eyebrow teal">GUIDED MODE</span><h1>Build a complete call narrative.</h1><p>Answer only what you know. You can switch back to Capture at any time.</p></div><span class="step-count"><b id="stepNum">1</b> of 8</span></div>
+            <div class="guided-card">
+              <div class="guided-top"><span class="prompt-index">01</span><div><span class="eyebrow">INTRODUCTION</span><h2 id="questionTitle">How did the call begin?</h2></div></div>
+              <textarea id="guidedAnswer" placeholder="Include unit, crew, response mode, dispatch information, and arrival."></textarea>
+              <div class="suggestions"><span>QUICK DETAILS</span><button data-answer="Nature of call: ">Nature of call</button><button data-answer="Location type: ">Location type</button><button data-answer="Response mode: ">Response mode</button></div>
+              <div class="guided-actions"><button class="skip-btn" id="skipButton">Skip for now</button><div><button class="back-btn" id="backButton">← Back</button><button class="next-btn" id="nextButton">Continue <span>→</span></button></div></div>
+            </div>
+            <div class="question-dots" id="questionDots"></div>
+          </div>
+
+          <div id="grammarMode" class="mode-view hidden">
+            <div class="view-heading"><div><span class="eyebrow teal">GRAMMAR ASSIST</span><h1>Rewrite the narrative for clarity.</h1><p>Each proposal keeps the original beside an editable rewrite. Nothing changes until you accept it.</p></div><span class="step-count" id="grammarCount">0 sections</span></div>
+            <div class="grammar-toolbar">
+              <div><span class="eyebrow">LOCAL REVIEW</span><p>Uses a conservative sentence pass in this demo and formats the result in I-CHEATED order. Clinical facts, numbers, quotes, and timing stay under your control.</p></div>
+              <div class="grammar-toolbar-actions"><button class="analyze-btn" id="grammarRewriteButton" type="button">Rewrite + order <span>→</span></button><button class="secondary-action" id="grammarAcceptAll" type="button" disabled>Accept all rewrites</button><button class="secondary-action" id="grammarDiscardAll" type="button" disabled>Discard proposal</button></div>
+            </div>
+            <div class="grammar-status" id="grammarStatus" role="status" aria-live="polite">No rewrite proposal yet.</div>
+            <section class="grammar-proposal" id="grammarProposal" hidden aria-labelledby="grammarProposalTitle">
+              <div class="grammar-proposal-heading"><div><span class="eyebrow teal">REVIEW REWRITE</span><h2 id="grammarProposalTitle">Compare before accepting</h2></div><p>Review the complete ordered draft, then inspect any section-level wording changes.</p></div>
+              <section class="grammar-order-preview" id="grammarOrderPreview" aria-labelledby="grammarOrderTitle">
+                <div class="grammar-order-heading"><div><span class="eyebrow teal">I-CHEATED ORDER</span><h3 id="grammarOrderTitle">Full narrative draft</h3></div><span class="grammar-order-state" id="grammarOrderState">Pending review</span></div>
+                <div class="grammar-order-compare"><label>Current narrative<textarea id="grammarOrderOriginal" readonly aria-label="Current narrative in I-CHEATED order"></textarea></label><label>Ordered rewrite<textarea id="grammarOrderRewrite" readonly aria-label="Rewritten narrative in I-CHEATED order"></textarea></label></div>
+                <div class="grammar-order-actions"><p>Accepting the ordered draft applies the reviewed section rewrites below. Structured clinical detail remains attached to its I-CHEATED section.</p><button class="primary-action" id="grammarAcceptOrdered" type="button" disabled>Accept I-CHEATED draft</button></div>
+              </section>
+              <div id="grammarProposalSections"></div>
+            </section>
+          </div>
+        </section>
+
+        <aside class="right-panel">
+          <div class="narrative-title"><div><span class="eyebrow">LIVE NARRATIVE</span><h2>I-CHEATED</h2></div><button class="copy-btn" id="copyButton" title="Copy narrative" aria-label="Copy narrative"><svg class="ic" aria-hidden="true" focusable="false"><use href="#ic-copy"></use></svg></button></div>
+          <div class="narrative-scroll" id="narrativeScroll">
+            <div class="narrative-section" data-narrative="introduction"><button class="spine-node" aria-label="Introduction - needs detail">I</button><div class="narrative-body"><div class="narrative-label">INTRODUCTION</div><p id="introductionText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Introduction narrative">Add unit, crew, response, dispatch, and arrival.</p></div></div>
+            <div class="narrative-section" data-narrative="complaint"><button class="spine-node" aria-label="Chief complaint - needs detail">C</button><div class="narrative-body"><div class="narrative-label">CHIEF COMPLAINT</div><p id="complaintText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Chief complaint narrative">Add the chief complaint and presentation.</p></div></div>
+            <div class="narrative-section" data-narrative="history"><button class="spine-node" aria-label="History - needs detail">H</button><div class="narrative-body"><div class="narrative-label">HISTORY</div><p id="historyText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="History narrative">Add history, medications, allergies, and pertinent negatives.</p></div></div>
+            <div class="narrative-section" data-narrative="exam"><button class="spine-node" aria-label="Exam - needs detail">E</button><div class="narrative-body"><div class="narrative-label">EXAM</div><p id="examText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Exam narrative">Add exam findings and vital trends.</p></div></div>
+            <div class="narrative-section" data-narrative="assessment"><button class="spine-node" aria-label="Assessment - needs detail">A</button><div class="narrative-body"><div class="narrative-label">ASSESSMENT</div><p id="assessmentText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Assessment narrative">Add clinical impression and medical necessity.</p></div></div>
+            <div class="narrative-section" data-narrative="treatment"><button class="spine-node" aria-label="Treatment - needs detail">T</button><div class="narrative-body"><div class="narrative-label">TREATMENT</div><p id="treatmentText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Treatment narrative">Add interventions performed.</p></div></div>
+            <div class="narrative-section" data-narrative="evaluation"><button class="spine-node" aria-label="Evaluation - needs detail">E</button><div class="narrative-body"><div class="narrative-label">EVALUATION</div><p id="evaluationText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Evaluation narrative">Add response, reassessment, repeat vitals, and en route condition.</p></div></div>
+            <div class="narrative-section" data-narrative="disposition"><button class="spine-node" aria-label="Disposition - needs detail">D</button><div class="narrative-body"><div class="narrative-label">DISPOSITION</div><p id="dispositionText" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Disposition narrative">Add destination, priority, transfer of care, and final status.</p></div></div>
+          </div>
+          <details class="open-questions" open><summary class="questions-heading"><span>OPEN QUESTIONS</span><b id="missingCount">8 sections</b></summary><div id="questionsList"></div></details>
+        </aside>
+      </div>
+      </section>
+
+      <section class="app-page scribe-page" data-page="scribe" hidden aria-labelledby="scribeTitle">
+        <header class="page-header">
+          <span class="eyebrow teal">CLINICAL SCRIBE</span>
+          <h1 id="scribeTitle" tabindex="-1">Conversation workspace</h1>
+          <p>Transcript-first encounter notes for emergency-room documentation.</p>
+        </header>
+        <div class="scribe-intro" role="status">
+          <span class="status-label implemented">TRANSCRIPT FIRST</span>
+          <div>
+            <strong>Capture the conversation before organizing it.</strong>
+            <p>Manual segments preserve speaker, timing, and exact wording. Digest generation is opt-in, local-only, and requires transcript review.</p>
+          </div>
+        </div>
+        <section class="scribe-session-bar" aria-label="Scribe session details">
+          <label>Session label<input id="scribeSessionLabel" type="text" placeholder="Synthetic ED encounter" autocomplete="off" /></label>
+          <div class="scribe-session-state"><span class="eyebrow">SOURCE STATUS</span><strong id="scribeStatus">Draft</strong><span id="scribeSegmentCount">0 segments · 0 words</span></div>
+          <div class="scribe-ai-controls"><span class="scribe-ai-status" id="scribeAiStatus" role="status" aria-live="polite">Checking local model</span><label class="ai-consent" title="When enabled, the reviewed transcript may be sent to this server and its loopback Ollama provider."><input type="checkbox" id="scribeLocalAiConsent" /> <span>Use local AI</span></label><button class="secondary-action" id="scribeReviewButton" type="button">Mark transcript reviewed</button></div>
+        </section>
+        <div class="scribe-grid">
+          <section class="scribe-panel scribe-transcript" aria-labelledby="scribeTranscriptTitle">
+            <div class="scribe-panel-heading"><div><span class="eyebrow teal">SOURCE OF TRUTH</span><h2 id="scribeTranscriptTitle">Conversation transcript</h2><p>Type or paste one speaker turn at a time. Blank timestamps stay blank.</p></div><div class="scribe-panel-actions"><button class="secondary-action" id="scribeLoadSample" type="button">Load sample</button><button class="primary-action" id="scribeAddSegment" type="button">Add segment</button></div></div>
+            <div class="scribe-privacy-alert" id="scribePrivacyAlert" role="alert" hidden><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg><div><b>Possible identifying information detected</b><p>Use fictional or properly de-identified content. Detection is incomplete and is not de-identification.</p></div></div>
+            <div class="scribe-segment-list" id="scribeSegmentList" role="list" aria-live="polite"></div>
+            <div class="scribe-empty" id="scribeEmpty"><strong>No transcript segments yet.</strong><p>Add a segment or load the synthetic example to begin.</p></div>
+          </section>
+          <section class="scribe-panel scribe-digest" aria-labelledby="scribeDigestTitle">
+            <div class="scribe-panel-heading"><div><span class="eyebrow teal">OUTPUT PREVIEW</span><h2 id="scribeDigestTitle">Encounter digest</h2><p>Generate a source-referenced study-note proposal after reviewing the transcript.</p></div><div class="scribe-digest-heading-actions"><span class="status-label required" id="scribeDigestStatus">NOT GENERATED</span><button class="primary-action" id="scribeGenerateDigest" type="button" disabled>Generate digest</button></div></div>
+            <div class="scribe-digest-outline" id="scribeDigestOutline"><div><b>Overview</b><span>Reason for visit and encounter context</span></div><div><b>Timeline</b><span>Time-ordered events and speaker statements</span></div><div><b>Patient statements</b><span>Symptoms, history, and exact quotes</span></div><div><b>Observations and actions</b><span>Clinician observations, tests, and care performed</span></div><div><b>Open details</b><span>Questions that still need clinician review</span></div></div>
+            <div class="scribe-digest-proposal" id="scribeDigestProposal" hidden>
+              <div class="scribe-digest-sections" id="scribeDigestSections"></div>
+              <section class="scribe-digest-questions" id="scribeDigestQuestions" hidden aria-labelledby="scribeDigestQuestionsTitle"><h3 id="scribeDigestQuestionsTitle">Open details</h3><p>These are documentation prompts, not patient facts.</p><ul id="scribeDigestQuestionList"></ul></section>
+              <div class="scribe-digest-review"><div><span class="eyebrow">DIGEST REVIEW</span><strong id="scribeDigestReviewStatus">Needs review</strong><p>Check each generated block against the transcript before copying or downloading it.</p></div><button class="primary-action" id="scribeDigestReviewButton" type="button" disabled>Mark digest reviewed</button></div>
+              <div class="scribe-digest-export"><button class="secondary-action" id="scribeDigestCopy" type="button" disabled>Copy digest</button><button class="secondary-action" id="scribeDigestDownload" type="button" disabled>Download digest</button></div>
+            </div>
+            <div class="scribe-digest-note"><svg class="ic" aria-hidden="true"><use href="#ic-source"></use></svg><p>The transcript remains the authoritative source. No generated digest is final or signed.</p></div>
+          </section>
+        </div>
+        <div class="scribe-actions">
+          <div class="scribe-export-actions"><button class="secondary-action" id="scribeCopy" type="button">Copy transcript</button><button class="secondary-action" id="scribeDownload" type="button">Download transcript</button><button class="secondary-action" id="clearScribeButton" type="button">Clear session</button></div>
+          <div class="scribe-actions-right"><a class="secondary-action" href="#/workspace">Open Narrative Writer</a><span class="page-context">Synthetic demo only · no recording is active</span></div>
+        </div>
+      </section>
+
+      <section class="app-page" data-page="cases" hidden aria-labelledby="casesTitle">
+        <header class="page-header"><span class="eyebrow teal">SYNTHETIC WORK QUEUE</span><h1 id="casesTitle" tabindex="-1">Work queue</h1><p>Browse the training fixtures available in this browser session.</p></header>
+        <p class="page-context">6 synthetic work queue items · nothing here is a real patient record · this list is not persisted</p>
+        <div class="case-filters" aria-label="Case filters"><div class="filter-chips" id="caseStatusFilters"><button class="chip active" data-case-status="all">All</button><button class="chip" data-case-status="Draft">Draft</button><button class="chip" data-case-status="Reviewed">Reviewed</button><button class="chip" data-case-status="Exported">Exported</button></div><label class="filter-input">Filter cases <input id="caseTextFilter" type="search" placeholder="Incident, call type, or unit" /></label></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">Incident</th><th scope="col">Call type</th><th scope="col">Unit</th><th scope="col">Date / time</th><th scope="col">Completeness</th><th scope="col">Status</th><th scope="col">Data mode</th><th scope="col"><span class="visually-hidden">Action</span></th></tr></thead><tbody id="casesTableBody"></tbody></table></div>
+        <aside class="fixture-panel" id="fixturePanel" hidden aria-live="polite"></aside>
+      </section>
+
+      <section class="app-page" data-page="review" hidden aria-labelledby="reviewPageTitle">
+        <header class="page-header"><span class="eyebrow teal">CLINICIAN REVIEW</span><h1 id="reviewPageTitle" tabindex="-1">Review</h1><p>Compare the draft with source notes before export.</p></header>
+        <div class="review-summary"><div><span>DOCUMENTATION</span><b id="reviewProgress">Sections with content — 0 of 8</b></div><div><span>OPEN ITEMS</span><b id="reviewMissing">8 open sections</b></div><div><span>DATA MODE</span><b>Fictional demo</b></div></div>
+        <div class="review-columns"><section class="review-source"><h2>SOURCE OF TRUTH</h2><p class="preservation-note">Raw notes are preserved and never overwritten.</p><pre id="reviewRawNotes"></pre></section><section class="review-draft"><h2>DRAFT FOR REVIEW</h2><div id="reviewSections"></div><div class="review-clinical" id="reviewClinical"></div></section></div>
+        <fieldset class="review-checks"><legend>Reviewer attestations</legend><label><input type="checkbox" data-review-check /><span>I compared the draft with the original notes.</span></label><label><input type="checkbox" data-review-check /><span>I confirmed that no clinical fact was invented or materially changed.</span></label><label><input type="checkbox" data-review-check /><span>I understand this demo does not sign or submit a patient-care report.</span></label><label><input type="checkbox" data-review-check /><span>I am authorized to document this patient encounter.</span></label></fieldset>
+        <div class="review-export"><div><p class="export-reason" id="exportReason">Complete all four attestations to enable export controls.</p><div class="export-actions"><button class="secondary-action" id="reviewCopy" disabled>Copy plain text</button><button class="secondary-action" id="reviewDownload" disabled>Download .txt</button><button class="secondary-action" id="reviewPrint" disabled>Print view</button></div></div><p>Export only. FieldNote does not sign, submit, or write back to an ePCR.</p></div>
+      </section>
+
+      <section class="app-page" data-page="audit" hidden aria-labelledby="auditTitle">
+        <header class="page-header page-header-action"><div><span class="eyebrow teal">SESSION ACTIVITY</span><h1 id="auditTitle" tabindex="-1">Audit <span id="auditCount">0 events</span></h1><p>Append-only activity recorded in this browser session.</p></div><button class="secondary-action" id="downloadAudit">Download log (.txt)</button></header>
+        <label class="filter-input audit-filter">Filter events <select id="auditFilter"><option value="">All event types</option></select></label>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">Time</th><th scope="col">Actor</th><th scope="col">Event</th><th scope="col">Detail</th></tr></thead><tbody id="auditTableBody"></tbody></table></div>
+        <aside class="pilot-note"><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><p>Production requires server-side, tamper-evident, immutable audit records covering view, generate, edit, export, and approval, retained per agency policy. This demo log exists only in browser memory and clears on refresh.</p></aside>
+      </section>
+
+      <section class="app-page" data-page="trust" hidden aria-labelledby="trustPageTitle"><header class="page-header"><span class="eyebrow teal">TRUST CENTER</span><h1 id="trustPageTitle" tabindex="-1">Trust</h1><p>Intended use, safeguards, and pilot requirements.</p></header><aside class="trust-status"><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg><div><b>This build is a local/private synthetic test, not a production medical record service.</b><span>No accounts, database, cloud AI, analytics, or ePCR connection. Optional Ollama testing stays on localhost. Dictation may use a browser or vendor speech service and is for synthetic notes only.</span></div></aside><section class="trust-intended"><h2>Intended use</h2><blockquote>FieldNote assists authorized EMS personnel in organizing and drafting patient-care documentation from clinician-provided information. It does not diagnose, triage, recommend treatment, calculate clinical risk, or replace clinician judgment. The clinician reviews, edits, and approves all final documentation.</blockquote></section><div class="trust-limits"><section><h2>The app may</h2><ul><li>Transcribe, organize, reformat, and proofread supplied facts</li><li>Preserve source notes and exact quotes</li><li>Ask for missing documentation details</li><li>Generate an editable I-CHEATED draft</li></ul></section><section><h2>The app must not</h2><ul><li>Invent findings, times, doses, treatments, or outcomes</li><li>Recommend diagnosis, medication, destination, treatment, or transport priority</li><li>Auto-sign, auto-submit, or alter a locked report</li><li>Make billing or coding decisions without human review</li></ul></section></div><section class="trust-section"><h2>Control matrix</h2><div class="table-wrap"><table class="data-table control-matrix"><thead><tr><th scope="col">Control</th><th scope="col">Status</th></tr></thead><tbody><tr><td>Synthetic-data acknowledgement</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Draft recovery is browser-tab-only and synthetic-data-only</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>No external/cloud note transmission</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Optional local Ollama route</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Source evidence for organized text</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Human review before completion</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>No diagnosis or treatment recommendations</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Security headers + CSP on the demo server</td><td><span class="status-label implemented">IMPLEMENTED HERE</span></td></tr><tr><td>Agency tenant isolation</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Named accounts + MFA + RBAC + session timeout</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>TLS + encryption at rest with managed keys</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Immutable audit trail</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Signed BAAs with every PHI-touching vendor</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Documented risk analysis</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>No-PHI-in-logs/telemetry guarantee</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Agency-controlled retention and deletion</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Encrypted tested backups</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Evaluation suite for fabrication and dose errors</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Clinical validation</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr><tr><td>Approved export-only ePCR integration</td><td><span class="status-label required">REQUIRED FOR AGENCY PILOT</span></td></tr></tbody></table></div></section><section class="trust-section"><h2>AI use policy</h2><p>No training on customer data; deterministic settings; strict structured output with source references and explicit “not found” fields rather than guesses; source mismatches are rejected; human approval required; known limitations stated.</p></section><section class="trust-section"><h2>Agency trust package</h2><ul class="package-list"><li>Architecture diagram <span class="chip">Drafted</span></li><li>Security whitepaper <span class="chip">Drafted</span></li><li>BAA + DPA <span class="chip">Not started</span></li><li>Subprocessor list <span class="chip">Drafted</span></li><li>Retention policy <span class="chip">Not started</span></li><li>Incident response summary <span class="chip">Not started</span></li><li>AI use policy <span class="chip">Drafted</span></li><li>Clinical evaluation summary <span class="chip">Not started</span></li><li>Privacy policy + ToS + AUP <span class="chip">Not started</span></li></ul></section><p class="not-legal">Not legal advice. Have healthcare regulatory counsel review claims and features before any live use.</p></section>
+      <section class="app-page" data-page="admin" hidden aria-labelledby="adminPageTitle"><header class="page-header"><span class="eyebrow teal">AGENCY SETTINGS</span><h1 id="adminPageTitle" tabindex="-1">Admin</h1><p>Agency and tenant controls for a future pilot.</p></header><section class="admin-section"><h2>Agency profile</h2><dl class="profile-list"><div><dt>Agency</dt><dd>Demo County EMS — synthetic</dd></div><div><dt>Tenant ID</dt><dd class="mono">demo-county-ems</dd></div><div><dt>Region</dt><dd>US Central</dd></div></dl></section><section class="admin-section"><h2>Users + roles</h2><div class="table-wrap"><table class="data-table"><thead><tr><th scope="col">User</th><th scope="col">Role</th><th scope="col">Draft</th><th scope="col">Edit others’ drafts</th><th scope="col">Export</th><th scope="col">View audit</th><th scope="col">Manage users</th></tr></thead><tbody><tr><td>JA · Field provider</td><td>Field provider</td><td>Yes</td><td>No</td><td>Yes</td><td>No</td><td>No</td></tr><tr><td>QR · QA reviewer</td><td>QA reviewer</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr><tr><td>AD · Agency admin</td><td>Agency admin</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr></tbody></table></div></section><section class="admin-section"><h2>Security controls</h2><div class="settings-list"><div class="setting-row"><div><b>MFA</b><span>Will require a second factor for named accounts.</span></div><input type="checkbox" disabled aria-label="MFA unavailable in this demo" /><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><small>Unavailable: this demo has no accounts.</small></div><div class="setting-row"><div><b>SSO</b><span>Will use the agency identity provider for sign-in.</span></div><input type="checkbox" disabled aria-label="SSO unavailable in this demo" /><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><small>Unavailable: this demo has no identity provider.</small></div><div class="setting-row"><div><b>Session timeout</b><span>Will end inactive signed-in sessions.</span></div><input type="number" value="0" disabled aria-label="Session timeout unavailable in this demo" /><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><small>Unavailable: this demo has no sessions.</small></div><div class="setting-row"><div><b>IP allowlist</b><span>Will limit access to agency-approved network addresses.</span></div><input type="checkbox" disabled aria-label="IP allowlist unavailable in this demo" /><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><small>Unavailable: this demo has no network access controls.</small></div><div class="setting-row"><div><b>Password policy</b><span>Will enforce agency password rules for local accounts.</span></div><input type="checkbox" disabled aria-label="Password policy unavailable in this demo" /><span class="status-label required">REQUIRED FOR AGENCY PILOT</span><small>Unavailable: this demo has no accounts.</small></div></div></section><section class="admin-section"><h2>Data handling</h2><dl class="profile-list"><div><dt>Retention period</dt><dd>Not configured — the draft lives in this browser tab's session storage and clears when the tab closes.</dd></div><div><dt>Deletion request</dt><dd>Choose Clear draft in the workspace, or close this browser tab — either immediately removes all locally stored draft data.</dd></div><div><dt>Export of all agency data</dt><dd>Not available — there is no agency data store.</dd></div><div><dt>Subprocessor list</dt><dd>None — optional local Ollama receives notes only on this Mac; no cloud subprocessor is configured.</dd></div></dl></section><section class="admin-section epcr-row"><h2>ePCR integration</h2><p><span class="chip">Export only</span> Write-back is off because this demonstration has no ePCR connection.</p></section></section>
+    </main>
+    <nav class="mobile-tabs" aria-label="Mobile workspace views"><button data-pane="capture">Capture</button><button data-pane="guided">Guided</button><button data-pane="grammar">Grammar</button><button data-pane="narrative">Narrative <span id="mobileNeeds">8</span></button></nav>
+
+    <dialog class="modal demo-gate" id="demoGate" aria-labelledby="gateTitle">
+      <div class="modal-icon"><svg class="ic" aria-hidden="true"><use href="#ic-shield"></use></svg></div>
+      <span class="eyebrow teal">PRIVATE TEST BUILD</span>
+      <h2 id="gateTitle">Train with a safe, fictional case.</h2>
+      <p>This demo shows the documentation workflow. It is not a production medical record system and must not receive real patient information.</p>
+      <div class="boundary-list">
+        <div><b>Local demo</b><span>Drafts stay in this browser tab, survive an accidental refresh, and clear when the tab closes or when you choose Clear draft.</span></div>
+        <div><b>Optional local AI</b><span>Rules fallback is always available; Ollama can run on this Mac with no cloud API.</span></div>
+        <div><b>No ePCR connection</b><span>Nothing is signed, submitted, or added to a patient chart.</span></div>
+      </div>
+      <label class="attestation"><input type="checkbox" id="demoAgreement" /><span>I will use only fictional or properly de-identified information.</span></label>
+      <button class="primary-action" id="enterDemo" disabled>Enter demo workspace</button>
+    </dialog>
+
+
+    <dialog class="modal evidence-modal" id="evidenceDialog" aria-labelledby="evidenceTitle">
+      <div class="modal-header"><div><span class="eyebrow teal">SOURCE EVIDENCE</span><h2 id="evidenceTitle">How this section was assembled</h2></div><button class="modal-close" data-close="evidenceDialog" aria-label="Close source evidence"><svg class="ic" aria-hidden="true"><use href="#ic-close"></use></svg></button></div>
+      <div class="evidence-section-name" id="evidenceSectionName">INTRODUCTION</div>
+      <blockquote id="evidenceQuote"></blockquote>
+      <div class="evidence-rule"><b>Demo behavior</b><p>Accepted organizer text retains its raw-note source, and guided answers retain the clinician-entered answer. Directly edited sections state when no source excerpt is available. The prototype does not add unsupported clinical facts.</p></div>
+      <div class="modal-footer"><button class="secondary-action" data-close="evidenceDialog">Close</button></div>
+    </dialog>
+
+
+    <div class="toast" id="toast">Narrative copied to clipboard</div>
+    <script src="app.js"></script>
+  </body>
+</html>
