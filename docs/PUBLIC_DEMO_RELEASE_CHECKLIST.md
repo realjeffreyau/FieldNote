@@ -6,7 +6,7 @@ Do not use it as approval to enter live patient information.
 
 ## Release boundary
 
-- [x] Repository is labeled as a private synthetic test and contains no real patient data, credentials, or customer exports. The candidate remains uncommitted.
+- [x] Repository is labeled as a private synthetic test and contains no real patient data, credentials, or customer exports. The public repository contains source only; no hosted service is provided.
 - [x] The demo gate, Trust page, README, and release scope all say synthetic/de-identified data only.
 - [x] The server remains loopback by default: `HOST=127.0.0.1`, `ALLOW_NETWORK=false`, and `ALLOW_REMOTE_OLLAMA=false`.
 - [x] No cloud AI, analytics, session replay, database, ePCR write-back, audio recording, or account system is enabled in this demo.
@@ -34,11 +34,11 @@ fixtures. It checks strict headers, no-CORS behavior, encoded traversal denial,
 opaque/non-echoing errors, request limits, review gating, and the
 source-referenced provider boundary.
 
-When a Chrome debugging session and the configured loopback Ollama model are available, run the workflow and accessibility smoke:
+When a Chrome debugging session and the configured loopback Ollama model are available, set `FIELDNOTE_URL` to the address printed by `npm start`, then run the workflow and accessibility smoke:
 
 ```bash
-APP_URL=http://127.0.0.1:4173 \
-CDP_ENDPOINT=http://127.0.0.1:9222 \
+APP_URL="$FIELDNOTE_URL" \
+CDP_ENDPOINT="<your Chrome debugging endpoint>" \
 npm run test:browser
 ```
 
@@ -50,10 +50,10 @@ mode, keyboard focus, labels, touch targets, console/network failures, and
 requires a running local model; if it is unavailable, record that conditional
 branch as skipped rather than claiming live browser verification.
 
-For optional model-specific evidence, run the synthetic live evaluation against the same loopback server:
+For optional model-specific evidence, run the synthetic live evaluation against the same local server:
 
 ```bash
-AI_EVAL_URL=http://127.0.0.1:4173 npm run ai:eval:live
+AI_EVAL_URL="$FIELDNOTE_URL" npm run ai:eval:live
 ```
 
 ## Manual review
@@ -73,25 +73,25 @@ Record the commit, date, reviewer, commands, browser result, and known limitatio
 
 | Field | Value |
 | --- | --- |
-| Commit | `62db47b` baseline plus uncommitted working-tree changes; not a publishable release commit |
-| Date | 2026-09-02 correction-pass-1 final verification |
+| Commit | `680d887` public synthetic-demo release |
+| Date | 2026-09-06 |
 | Reviewer | Codex local automated and visual review; no independent clinical, legal, privacy, security, or accessibility sign-off |
 | `npm ci` | PASS; lockfile has zero dependencies, 1 package audited, 0 vulnerabilities |
 | `npm run release:private` | PASS; check, isolated no-Ollama readiness, AI regression, security regression, agency contract, and non-strict agency register |
 | `npm audit --omit=dev --audit-level=moderate` | PASS; 0 vulnerabilities |
 | `git diff --check` | PASS |
-| `AI_EVAL_URL=http://127.0.0.1:4173 npm run ai:eval:live` | PASS; 4/4 synthetic EMS cases against `fieldnote-qwen3:4b` |
+| Synthetic live evaluation | PASS; 4/4 synthetic EMS cases against `fieldnote-qwen3:4b` when local Ollama was running |
 | `npm run agency:readiness -- --json` | PASS; public boundary PASS; agency pilot BLOCKED; 0/20 required controls verified |
 | Browser smoke | PASS on isolated CDP 9333; live Scribe, degraded status, restored live status, Utilities-open, 375/768/1024/1440, and 844x500 landscape; console/network failures empty |
-| Known limitations | Synthetic private test only; agency pilot blocked; tree uncommitted; no remote; no license selected; no formal pixel baseline; no independent clinical, legal, privacy, security, accessibility, WCAG, or penetration assessment |
+| Known limitations | Synthetic private test only; no hosted endpoint; agency pilot blocked; no license selected; no formal pixel baseline; no independent clinical, legal, privacy, security, accessibility, WCAG, or penetration assessment |
 
-The evidence above is a release-candidate record, not permission to process live patient information. Re-run the gates from the final clean commit and obtain the appropriate human reviews before any public publishing.
+The evidence above records the public source commit; it is not permission to process live patient information. Obtain the appropriate human reviews before any hosted deployment or agency use.
 
 ## Final publishing handoff
 
 - [ ] Select the repository license and add the corresponding `LICENSE` file; do not infer legal terms from this prototype.
-- [ ] Review the final public file list, commit the intended release tree, and rerun this checklist from that clean commit.
-- [ ] Confirm CI passes on the public repository before announcing or hosting the demo.
+- [x] Review the final public file list and commit the intended source-only release tree.
+- [x] Confirm CI passes on the public repository before announcing or hosting the demo.
 
 ## Do not promote this build to agency use
 

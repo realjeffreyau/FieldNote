@@ -44,7 +44,8 @@ Do not create an automatic feedback loop from clinician drafts. Real agency data
 ```bash
 npm run ai:build-model
 OLLAMA_MODEL=fieldnote-qwen3:4b npm start
-AI_EVAL_URL=http://127.0.0.1:4173 npm run ai:eval:live
+export FIELDNOTE_URL="<the address printed by npm start>"
+AI_EVAL_URL="$FIELDNOTE_URL" npm run ai:eval:live
 ```
 
 The live evaluation uses only synthetic notes. A passing run is evidence for this prototype, not evidence of clinical safety or agency readiness.

@@ -1,4 +1,6 @@
-const baseUrl = (process.env.AI_EVAL_URL || 'http://127.0.0.1:4173').replace(/\/$/, '');
+const defaultHost = process.env.HOST || '127.0.0.1';
+const defaultPort = process.env.PORT || '4173';
+const baseUrl = (process.env.AI_EVAL_URL || `http://${defaultHost}:${defaultPort}`).replace(/\/$/, '');
 
 const fixtures = [
   {

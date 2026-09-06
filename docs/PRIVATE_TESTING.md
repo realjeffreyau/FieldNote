@@ -13,10 +13,12 @@ npm ci
 npm start
 ```
 
-Open `http://127.0.0.1:4173`. In a second terminal, verify the running app:
+Open the address printed by `npm start`. This is a local-only server created on
+the tester's machine; this repository does not publish a hosted endpoint. In a
+second terminal, set `FIELDNOTE_URL` to that address and verify the running app:
 
 ```bash
-curl -fsS http://127.0.0.1:4173/api/status
+curl -fsS "$FIELDNOTE_URL/api/status"
 ```
 
 The response should report `localOnly: true`. The browser shows the persistent
@@ -77,7 +79,7 @@ instruction model, and keep FieldNote bound to loopback:
 ```bash
 ollama pull qwen3:4b
 OLLAMA_MODEL=qwen3:4b npm start
-AI_EVAL_URL=http://127.0.0.1:4173 npm run ai:eval:live
+AI_EVAL_URL="$FIELDNOTE_URL" npm run ai:eval:live
 ```
 
 The checkbox is off by default. Enabling it is an explicit per-tab consent to
@@ -91,8 +93,8 @@ With Google Chrome and an isolated CDP session available, run the browser smoke
 against the server you started:
 
 ```bash
-APP_URL=http://127.0.0.1:4173 \
-CDP_ENDPOINT=http://127.0.0.1:9222 \
+APP_URL="$FIELDNOTE_URL" \
+CDP_ENDPOINT="<your Chrome debugging endpoint>" \
 npm run test:browser
 ```
 

@@ -3,7 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const endpoint = process.env.CDP_ENDPOINT || 'http://127.0.0.1:9222';
-const appUrl = process.env.APP_URL || 'http://127.0.0.1:4173/';
+const appHost = process.env.HOST || '127.0.0.1';
+const appPort = process.env.PORT || '4173';
+const appUrl = process.env.APP_URL || `http://${appHost}:${appPort}/`;
 const appOrigin = new URL(appUrl).origin;
 const pages = await fetch(`${endpoint}/json`).then(response => response.json());
 const page = pages.find(item => item.type === 'page' && (item.url.startsWith(appOrigin) || item.url === 'about:blank'));

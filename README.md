@@ -19,7 +19,9 @@ npm ci
 npm start
 ```
 
-Open <http://127.0.0.1:4173>. The app binds to loopback by default and shows
+Open the address printed by `npm start`. This is a local-only development
+server; the repository does not provide a hosted demo URL, login, public API,
+or uptime promise. The default loopback bind is intentional and the app shows
 the private-test boundary in the interface.
 
 Run the local release checks with:
@@ -45,10 +47,11 @@ npm run ai:build-model
 OLLAMA_MODEL=fieldnote-qwen3:4b npm start
 ```
 
-With the server running, synthetic live evaluation is available through:
+With the server running, set `FIELDNOTE_URL` to the address printed in the
+terminal. Synthetic live evaluation is then available through:
 
 ```bash
-AI_EVAL_URL=http://127.0.0.1:4173 npm run ai:eval:live
+AI_EVAL_URL="$FIELDNOTE_URL" npm run ai:eval:live
 ```
 
 The local model is optional. Without it, the browser keeps the deterministic
@@ -81,6 +84,12 @@ requirements; they do not mean those controls are implemented here.
 Before any real deployment, the project needs independent clinical, privacy,
 security, accessibility, legal, and operational review, along with an approved
 agency architecture and vendor agreements.
+
+The GitHub repository contains source code and tests only. Running `npm start`
+creates a server on the tester's own machine; it does not deploy FieldNote or
+make the application reachable by other people. Browser-tab drafts are not a
+secure records system, and the loopback Ollama route is not a production AI
+integration.
 
 This source is published for review and demonstration. No license is granted
 yet.

@@ -7,6 +7,8 @@ security, clinical, legal, and operational product milestone.
 ## Private synthetic test
 
 - Fictional or properly de-identified information only.
+- The GitHub repository is source-only; there is no hosted FieldNote endpoint.
+- `npm start` creates a local server on the tester's machine and does not publish the app.
 - No accounts, database, ePCR write-back, analytics, cloud AI, or PHI.
 - Capture mode remains usable without AI.
 - Optional Ollama testing is allowed only on the same Mac through the local development server.
@@ -23,7 +25,7 @@ Private-test release gates:
 - The local Scribe compose response uses a separate versioned contract with opaque segment references, review gating, and fail-closed model-output validation; this is metadata for testing, not an agency audit trail.
 - Security headers, secret hygiene, and synthetic-data warnings are verified.
 - `npm run check`, `npm run test:private`, `npm run test:ai`, and `npm run test:security` pass against synthetic fixtures; the private probe also starts an isolated server and verifies the no-Ollama health path.
-- Browser smoke (`APP_URL=http://127.0.0.1:4173 CDP_ENDPOINT=http://127.0.0.1:9222 npm run test:browser`) verifies draft recovery, Scribe source links, review-before-export, mobile reflow, touch targets, accessible names, focus, live-region semantics, degraded model state, and the 375/768/1024/1440 plus landscape matrix when a Chrome debugging session is available.
+- Browser smoke uses `APP_URL="$FIELDNOTE_URL"` and a tester-provided Chrome debugging endpoint to verify draft recovery, Scribe source links, review-before-export, mobile reflow, touch targets, accessible names, focus, live-region semantics, degraded model state, and the 375/768/1024/1440 plus landscape matrix when a Chrome debugging session is available.
 - Browser visual smoke is reported separately when a browser runner is unavailable; passing these checks does not establish WCAG certification or agency readiness.
 
 ## Agency pilot
