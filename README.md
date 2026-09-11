@@ -1,5 +1,8 @@
 # FieldNote
 
+[![FieldNote checks](https://github.com/realjeffreyau/FieldNote/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/realjeffreyau/FieldNote/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/realjeffreyau/FieldNote/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/realjeffreyau/FieldNote/actions/workflows/codeql.yml)
+
 FieldNote is a local prototype for EMS documentation. It gives providers a
 place to capture a call in their own words, organize it into I-CHEATED order,
 and review a source-linked draft. A separate Clinical Scribe workspace can
@@ -31,10 +34,11 @@ npm run release:private
 npm audit --omit=dev --audit-level=moderate
 ```
 
-The checks cover syntax, isolated startup, the no-model path, source-preserving
-AI contracts, security headers and request limits, agency-boundary contracts,
-and the current readiness register. The agency register is expected to remain
-blocked for this prototype.
+The same checks run in GitHub Actions on pushes to `main` and on pull
+requests. They cover syntax, isolated startup, the no-model path,
+source-preserving AI contracts, security headers and request limits,
+agency-boundary contracts, and the current readiness register. The agency
+register is expected to remain blocked for this prototype.
 
 ## Optional local Ollama
 
@@ -93,3 +97,7 @@ integration.
 
 This source is published for review and demonstration. No license is granted
 yet.
+
+For contribution guidance, see [CONTRIBUTING.md](CONTRIBUTING.md). For
+security reports, see [SECURITY.md](SECURITY.md). Do not include PHI,
+credentials, or other sensitive data in issues or pull requests.
