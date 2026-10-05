@@ -90,4 +90,5 @@ try {
 } catch (error) {
   console.error(`AI live evaluation failed: ${error.message}`);
   process.exitCode = 1;
+  
 }
